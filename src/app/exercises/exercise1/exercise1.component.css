@@ -1,0 +1,7 @@
+.custom-button {
+    background-color: rgba(0, 0, 255, 0.479);
+    color: white;
+    font-weight: bold;
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+  }
