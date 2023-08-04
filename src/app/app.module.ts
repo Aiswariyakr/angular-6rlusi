@@ -20,10 +20,7 @@ import { ExercisesModule } from './exercises/exercises.module';
     AppRoutingModule,
     Exercise1Module,
     
-    // RouterModule.forRoot([{
-    //   path: 'exercises',
-    //   loadChildren: () =>   import('./exercises/exercises.module').then((m) => m.ExercisesModule),
-    // }]),
+    
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,90 +1,40 @@
 // exercise1.component.ts
 
-import { Component, OnInit } from '@angular/core';
-
-import { FormBuilder, FormGroup, Validators, AbstractControl, ValidatorFn, ValidationErrors } from '@angular/forms';
-
-
-
+import { Component } from '@angular/core';
+import { AbstractControl, FormControl,  ValidatorFn } from '@angular/forms';
+import { NgForm } from '@angular/forms';
 
 @Component({
 
   selector: 'app-exercise1',
-
   templateUrl: './exercise1.component.html',
-
   styleUrls: ['./exercise1.component.css']
 
 })
 
-export class Exercise1Component implements OnInit {
+export class Exercise1Component  {
+  user = {
+    name: '',
+    email: '',
+    password: ''
+  };
+   passwordPattern = '^(?=.*?[A-Za-z])(?=.*?[0-9])(?=.*?[!@#$%^&*()]).*$';
 
-  registrationForm!: FormGroup;
-
-
-
-
-  constructor(private formBuilder: FormBuilder) { }
-
-
-
-
-  ngOnInit(): void {
-
-    this.registrationForm = this.formBuilder.group({
-
-      name: ['', Validators.required],
-
-      email: ['', [Validators.required, Validators.pattern(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)]],
-
-      password: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(10), this.passwordComplexityValidator()]]
-
-    });
-
-  }
-
-  passwordComplexityValidator(): ValidatorFn {
-
-    return (control: AbstractControl): ValidationErrors | null => {
-
-      const value = control.value;
-
-      if (value && value.length >= 4 && value.length <= 10) {
-
-        if (!/\W/.test(value)) {
-
-          return { specialChars: true };
-
-        }
-
-        if (/(.)\1/.test(value)) {
-
-          return { consecutiveChars: true };
-
-        }
-
-      }
-
-      return null;
-
-    };
-
-  }
-
-submitForm(): void {
-
-    if (this.registrationForm.valid) {
-
-      // Perform registration logic
-
-      console.log('Registration is successful!');
-
+  onSubmit(registerForm: NgForm) {
+    if (registerForm.valid) {
+      console.log('Form submitted successfully!');
+      console.log(this.user);
     }
-
   }
-
 }
 
+export const PasswordValidator: ValidatorFn = (control: AbstractControl) => {
+  const password = control.value;
+  if (password && !password.match(/^(?=.*?[A-Za-z])(?=.*?[0-9])(?=.*?[!@#$%^&*()]).*$/)) {
+    return { invalidPassword: true };
+  }
+  return null;
+};
 
 
 
