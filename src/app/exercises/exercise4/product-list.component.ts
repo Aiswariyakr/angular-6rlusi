@@ -51,7 +51,6 @@ export class ProductListComponent implements OnInit,AfterViewChecked {
       this.cdr.markForCheck(); // Manually trigger change detection
     }, delay);
   }
-
   ngOnDestroy() {
     clearInterval(this.timerInterval);
   }
